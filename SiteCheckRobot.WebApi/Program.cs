@@ -23,7 +23,6 @@ namespace SiteCheckRobot.WebApi
             builder.Services.AddHostedService<SiteCheckBackgroundWorker>();
 
             builder.Services.AddTransient<IPeriodicWork, PeriodicWork>();
-            builder.Services.AddTransient<ISiteHealthRepository, SiteHealthRepository>();
 
             var keyVaultUrl = builder.Configuration["keyVaultUrl"];
             var secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
