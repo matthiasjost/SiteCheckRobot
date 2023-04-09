@@ -6,15 +6,19 @@ namespace SiteCheckRobot.WebApi
     public class SiteCheckBackgroundWorker : BackgroundService
     {
         private readonly ILogger<SiteCheckBackgroundWorker> _logger;
+        private readonly IPeriodicWork _periodicWork;
 
-        public SiteCheckBackgroundWorker(ILogger<SiteCheckBackgroundWorker> logger)
+        public SiteCheckBackgroundWorker(ILogger<SiteCheckBackgroundWorker> logger, IPeriodicWork periodicWork)
         {
             _logger = logger;
+            _periodicWork = periodicWork;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             DateTime lastTimeExecuted = DateTime.Now;
+
+            await _periodicWork.Execute();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -22,11 +26,7 @@ namespace SiteCheckRobot.WebApi
 
                 if (DateTime.Now.Subtract(lastTimeExecuted).TotalMinutes > 1)
                 {
-                    var siteCheck = new SiteCheck();
-                    var url = "https://www.matthias-jost.ch";
-                    await siteCheck.LoadSite(url);
-                    _logger.LogInformation("Response time: {time} ms", siteCheck.ResponseTimeMs);
-                    _logger.LogInformation("Response code: {code}", siteCheck.HttpStatusCode);
+                    await _periodicWork.Execute();
 
                     lastTimeExecuted = DateTime.Now;
                 }

@@ -1,3 +1,9 @@
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Extensions.Configuration;
+using SiteCheckRobot.Core;
+
 namespace SiteCheckRobot.WebApi
 {
     public class Program
@@ -16,7 +22,13 @@ namespace SiteCheckRobot.WebApi
             // add background web worker
             builder.Services.AddHostedService<SiteCheckBackgroundWorker>();
 
+            builder.Services.AddTransient<IPeriodicWork, PeriodicWork>();
+            builder.Services.AddTransient<ISiteHealthRepository, SiteHealthRepository>();
 
+            var keyVaultUrl = builder.Configuration["keyVaultUrl"];
+            var secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+            builder.Configuration.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
