@@ -13,6 +13,10 @@ namespace SiteCheckRobot.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // add background web worker
+            builder.Services.AddHostedService<SiteCheckBackgroundWorker>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,8 +32,11 @@ namespace SiteCheckRobot.WebApi
 
 
             app.MapControllers();
-
+            
+            
+            
             app.Run();
         }
     }
+
 }
