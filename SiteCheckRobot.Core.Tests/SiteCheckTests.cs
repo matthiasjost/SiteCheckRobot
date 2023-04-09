@@ -6,11 +6,11 @@ namespace SiteCheckRobot.Core.Tests
         public async Task SiteResponseTimeTest()
         {
             // Arrange
-            var siteCheck = new SiteCheck();
-            var url = "https://www.google.com";
-            var expectedResponseTimeMs = 1000;
+            SiteCheck siteCheck = new SiteCheck();
+            string url = "https://www.google.com";
+            int expectedResponseTimeMs = 1000;
             // Act
-            siteCheck.LoadSite(url);
+            await siteCheck.LoadSite(url);
             // Assert
             Assert.True(siteCheck.ResponseTimeMs < expectedResponseTimeMs);
         }
@@ -18,9 +18,9 @@ namespace SiteCheckRobot.Core.Tests
         public async Task SiteResponsCodeTest()
         {
             // Arrange
-            var siteCheck = new SiteCheck();
-            var url = "https://www.google.com";
-            var expectedResponseCode = 200;
+            SiteCheck siteCheck = new SiteCheck();
+            string url = "https://www.google.com";
+            int expectedResponseCode = 200;
             // Act
             await siteCheck.LoadSite(url);
             // Assert
