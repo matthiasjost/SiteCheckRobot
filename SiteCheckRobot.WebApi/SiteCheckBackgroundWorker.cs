@@ -1,37 +1,30 @@
-﻿namespace SiteCheckRobot.WebApi
+﻿using SiteCheckRobot.Core;
+
+namespace SiteCheckRobot.WebApi
 {
-    public class SiteCheckBackgroundWorker : IHostedService
-    {
-        private readonly ILogger<SiteCheckBackgroundWorker> _logger;
-        private Timer? _timer;
+   // create background service class
+   public class SiteCheckBackgroundWorker : BackgroundService
+   {
+       private readonly ILogger<SiteCheckBackgroundWorker> _logger;
 
         public SiteCheckBackgroundWorker(ILogger<SiteCheckBackgroundWorker> logger)
         {
             _logger = logger;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Timed Background Service is starting.");
-
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                               TimeSpan.FromSeconds(5));
-
-            return Task.CompletedTask;
-        }
-
-        private void DoWork(object? state)
-        {
-            _logger.LogInformation("Timed Background Service is working.");
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Timed Background Service is stopping.");
-
-            _timer?.Change(Timeout.Infinite, 0);
-
-            return Task.CompletedTask;
-        }
-    }
+       protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+       {
+           while (!stoppingToken.IsCancellationRequested)
+           {
+               _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+               // do work here
+               var siteCheck = new SiteCheck();
+               var url = "https://www.matthias-jost.ch";
+               await siteCheck.LoadSite(url);
+               _logger.LogInformation("Response time: {time} ms", siteCheck.ResponseTimeMs);
+               _logger.LogInformation("Response code: {code}", siteCheck.HttpStatusCode);
+               await Task.Delay(10000, stoppingToken);
+           }
+       }
+   }
 }
