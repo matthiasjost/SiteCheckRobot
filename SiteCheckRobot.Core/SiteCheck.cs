@@ -10,18 +10,49 @@ namespace SiteCheckRobot.Core
 
         public SiteCheck()
         {
-            
+
         }
         public async Task LoadSite(string url)
         {
-
             var watch = new Stopwatch();
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
+            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
             watch.Start();
-            HttpResponseMessage response = await client.GetAsync(url);
-            HttpStatusCode = (int)response.StatusCode;
-            watch.Stop();
-            ResponseTimeMs = (int)watch.ElapsedMilliseconds;
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url, cts.Token);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    HttpStatusCode = (int)response.StatusCode;
+                }
+                else
+                {
+                    HttpStatusCode = (int)response.StatusCode;
+                    // Handle non-200 status codes here
+                    // For example, you can throw an exception or set a flag to indicate an error
+                    // throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                    // or
+                    // HasError = true;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle general HTTP errors
+                HttpStatusCode = -2; // or any other error code you want to use
+            }
+            catch (TaskCanceledException)
+            {
+                // Handle timeouts
+                HttpStatusCode = -3; // or any other error code you want to use
+            }
+            finally
+            {
+                watch.Stop();
+                ResponseTimeMs = (int)watch.ElapsedMilliseconds;
+            }
         }
+
     }
 }
