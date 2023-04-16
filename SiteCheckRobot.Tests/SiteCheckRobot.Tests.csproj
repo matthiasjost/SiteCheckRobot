@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SiteCheckRobot.Core\SiteCheckRobot.Core.csproj" />
+    <ProjectReference Include="..\SiteCheckRobot\SiteCheckRobot.csproj" />
   </ItemGroup>
 
 </Project>

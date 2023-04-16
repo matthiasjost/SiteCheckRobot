@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteCheckRobot.WebApi", "SiteCheckRobot.WebApi\SiteCheckRobot.WebApi.csproj", "{C99C20CF-A4D7-4676-BDDD-D1C489203737}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiteCheckRobot", "SiteCheckRobot\SiteCheckRobot.csproj", "{C99C20CF-A4D7-4676-BDDD-D1C489203737}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteCheckRobot.Core", "SiteCheckRobot.Core\SiteCheckRobot.Core.csproj", "{6A85EBFB-C1AD-4C17-B737-D35566C8B412}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteCheckRobot.Core.Tests", "SiteCheckRobot.Core.Tests\SiteCheckRobot.Core.Tests.csproj", "{1EA40620-DD6B-4AF4-9372-AD3F87452256}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteCheckRobot.Tests", "SiteCheckRobot.Tests\SiteCheckRobot.Tests.csproj", "{1EA40620-DD6B-4AF4-9372-AD3F87452256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{C99C20CF-A4D7-4676-BDDD-D1C489203737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C99C20CF-A4D7-4676-BDDD-D1C489203737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C99C20CF-A4D7-4676-BDDD-D1C489203737}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A85EBFB-C1AD-4C17-B737-D35566C8B412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A85EBFB-C1AD-4C17-B737-D35566C8B412}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A85EBFB-C1AD-4C17-B737-D35566C8B412}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A85EBFB-C1AD-4C17-B737-D35566C8B412}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1EA40620-DD6B-4AF4-9372-AD3F87452256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1EA40620-DD6B-4AF4-9372-AD3F87452256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EA40620-DD6B-4AF4-9372-AD3F87452256}.Release|Any CPU.ActiveCfg = Release|Any CPU
